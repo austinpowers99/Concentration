@@ -1,0 +1,61 @@
+body {
+    flex-direction: column;
+    align-items:center;
+}
+
+.card-container {
+    display: grid;
+    justify-content: center;
+    grid-gap: 2px;
+    grid-template-columns: repeat(6, 120px);
+    grid-template-rows: repeat(0, calc(80px / 2*4));
+    margin-top: 16px;
+    margin-bottom: 0px;
+    justify-content: space-evenly;
+}
+
+.flip-card {
+    transform: rotateX(180deg);
+}
+
+h1 {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    background-color: #200418;
+    background-image: url('../images/backgrounds/hero3.svg');
+    background-size: cover; 
+    background-position: center top;
+    padding: 20px;
+    width: 800px;
+    text-shadow: 1.5px 1.2px #231d28;
+    color: white;
+    font-family: 'Allura', cursive;
+    font-size: 40px;
+    border-radius: 10px;
+}
+
+button.difficulty {
+    display: flex;
+}
+
+section{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 490px;
+    text-align: center;
+}
+
+#game-level{
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+}
+
+.header-updates {
+    display: flex;
+    justify-content: space-evenly;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    width: 400px
+}

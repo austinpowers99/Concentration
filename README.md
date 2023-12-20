@@ -1,6 +1,6 @@
 # Sam's Concentration Game 💥
 
-Your mission is to match all of the cards on the screen before the timer runs out and before you're out of moves! You'll need to sharpen your memory and quick thinking to succeed. 
+Your mission is to match all of the cards on the screen before the timer runs out or before you're out of moves! In this game you'll need to sharpen your memory and quick thinking to succeed. 
 
 The game contains three levels to choose from, and you may start at any of them.
 
