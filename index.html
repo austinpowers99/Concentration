@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sam's Concentration Game</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script defer src="main.js"></script>
 </head>
+
 <body>
     <h1>Sam's Concentration Game</h1>
+    <h3>Choose a level then tap a card to begin!</h3>
+    <br />
 
-    <section>
-        <button class="difficulty" id="easy-game">Beginner</button>
-        <button class="difficulty" id="medium-game">Intermediate</button>
-        <button class="difficulty" id="hard-game">Advanced</button>
-        <button class="difficulty" id="reset-game"> Reset</button>
+    <section class="difficulty">
+        <button id="easy-game">Beginner</button>
+        <button id="medium-game">Intermediate</button>
+        <button id="hard-game">Advanced</button>
+        <button id="reset-game"> Reset</button>
     </section>
 
-    <h2 id="new message">Start New Game</h2>
     <div class="header-updates">
-        <h4 id="timer-header" >Time Left:</h4>
-        <p id="timer">0</p>
-        <h4 id="moves-header">Moves Left:</h4>
-        <p id="moves"></p>
+        <h4 id="timer-header" >Time Left:</h4><p id="timer">0</p>
+        <h4 id="moves-header">Moves Left:</h4><p id="moves"></p>
     </div>
 
+    <div id="game-card" class="card-container"></div>
 </body>
 </html>

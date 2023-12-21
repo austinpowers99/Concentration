@@ -1,9 +1,75 @@
-body {
+/* body {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
     flex-direction: column;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(216, 206, 253);
+} */
+
+h1 {
+    display: flex;
+    background-color: #04f0e8;
+    /* background-image: url(); */
+    /* align-items: center; */
+    /* background-size: cover;  */
+    /* background-position: center top; */
+    /* justify-content: center; */
+    justify-content: center;
+    text-align: center;
+    padding: 3vmin;
+    font-family: 'Allura', cursive;
+    font-size: 6vmin;
+    border-radius: 2vmin;
 }
 
-.card-container {
+h3 {
+    font-family: 'Allura', cursive;
+    font-size: 3.5vmin;
+    color: rgb(87, 167, 1);
+    justify-content: center;
+    text-align: center;
+}
+
+.header-updates {
+    display: flex;
+    justify-content: space-evenly;
+    font-family: 'Allura', cursive;
+    font-size: 3.5vmin;
+    text-align: center;
+    border-radius: 2vmin;
+    background-color: rgb(3, 230, 250);
+    margin: 5vmin 10vmin;
+}
+
+.difficulty {
+    display: flex;
+    justify-content: space-evenly;
+    font-family: 'Allura', cursive;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* .card {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 1vmin 1vmin 2vmin 1vmin;
+    cursor: auto;
+    font-size: inherit;
+    width: 10vmin;
+    height: 14vmin;
+    border-radius: 2vmin;
+    background-color: #ff3030;
+    background-position: center;
+    background-size: contain;
+    overflow: hidden;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease-in-out;
+} */
+
+/* .card-container {
     display: grid;
     justify-content: center;
     grid-gap: 2px;
@@ -12,50 +78,32 @@ body {
     margin-top: 16px;
     margin-bottom: 0px;
     justify-content: space-evenly;
-}
+    border-radius: 2vmin;
+    border-color: #200418;
+} */
 
-.flip-card {
+/* .flip-card {
     transform: rotateX(180deg);
-}
+} */
 
-h1 {
+/* .game-difficulty {
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    background-color: #200418;
-    background-image: url('../images/backgrounds/hero3.svg');
-    background-size: cover; 
-    background-position: center top;
-    padding: 20px;
-    width: 800px;
-    text-shadow: 1.5px 1.2px #231d28;
-    color: white;
-    font-family: 'Allura', cursive;
-    font-size: 40px;
-    border-radius: 10px;
-}
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    border-radius: 2vmin;
+    border-color: black;
+} */
 
-button.difficulty {
-    display: flex;
-}
 
-section{
+/* section{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     width: 490px;
     text-align: center;
-}
+} */
 
-#game-level{
+/* #game-level{
     font-size: 18px;
-    /* font-family: 'Lato', sans-serif; */
-}
-
-.header-updates {
-    display: flex;
-    justify-content: space-evenly;
-    font-family: 'Lato', sans-serif;
-    text-align: center;
-    width: 400px
-}
+} */

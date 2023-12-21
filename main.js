@@ -15,11 +15,13 @@ const cardImages = [
 ];
 
 /*----- app's state (variables) -----*/
-let board;
-let results; // all cards are matched = 'Well Done!'
+let board
+let results // all cards are matched = 'Well Done!'
 let pairs = []; //keep track of matched cards
 let maxAttempts = 0
 let wrongGuess = 0;
+let cardCount
+let winner, moves, cardsAvailable,firstChoice
 
 /*----- cached element references -----*/
 const cards = document.querySelectorAll('.card');
@@ -60,4 +62,31 @@ function initGame(level) {
     cardCount = info.expectedPairs;
 
     render();
+}
+
+function generateDeck() {
+    const cardsOut = Array.form({ lenght: cardCount }, cardImages[0]).flat();
+    cardsAvailable = [...cardsOut];
+    fisherYatesShuffle(cardsAvailable);
+}
+
+function render() {
+    generateDeck()
+    cardsDisplayDesign()
+}
+
+function cardsDisplayDesign() {
+    cardContainer.innerHTML = '';
+
+    const cardElements = cardsAvailable.map((card, idx) => {
+        const newCard = document.createElement('div');
+        newCard.className = `game-card back`;
+        newCard.id = `game-card-${idx}`;
+        newCard.addEventListener('click', flipCard);
+        return newCard;
+    });
+
+    cardElements.forEach((cardElement) => {
+        cardContainer.appendChild(cardElement);
+    });
 }
