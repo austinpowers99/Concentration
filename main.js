@@ -1,92 +1,120 @@
 /*----- constants -----*/
-const cardImages = [
-    '', 
-    '', 
-    '', 
-    '', 
-    '', 
-    '', 
-    '', 
-    '', 
-    '', 
-    '', 
-    '', 
-    ''
-];
+const cardValues = ['images/cow.png', 'images/fox.png', 'images/horse.png', 'images/pig.png', 'images/rabbit.png', 'images/sheep.png', 
+'images/cow.png', 'images/fox.png', 'images/horse.png', 'images/pig.png', 'images/rabbit.png', 'images/sheep.png'];
 
 /*----- app's state (variables) -----*/
-let board
-let results // all cards are matched = 'Well Done!'
+let board;
+let results; // all cards are matched = 'Well Done!'
 let pairs = []; //keep track of matched cards
 let maxAttempts = 0
 let wrongGuess = 0;
-let cardCount
-let winner, moves, cardsAvailable,firstChoice
+let winner; // check for winner
+let selectedCards; // array to store selected cards
 
 /*----- cached element references -----*/
 const cards = document.querySelectorAll('.card');
-const button = document.querySelector('button');
+const backCardEl = document.getElementsByClassName('back-card');
+const startBtn = document.getElementById('start-btn');
+const restartBtn = document.getElementById('restart-btn');
 const message = document.querySelector('h3')
 const gameBoard = document.getElementById('game-board');
 
 
 /*----- event handlers -----*/
 cards.forEach(card => card.addEventListener('click', handleClick));
-function initEventListeners() {
-    ['easy', 'medium', 'hard'].forEach(level => {
-        document.getElementById(`${level}-game`).addEventListener('click', () => initGame(level));
-    });
+button.addEventListener('click', restartGame);
 
-    resetBtnEl.addEventListener('click', () => initGame(currentLevel));
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    initEventListeners();
-    initGame('easy'); // Default initialization
-});
 
 /*----- Functions -----*/
+init();
 
-const levelInfo = {
-    easy: { moves: 10, time: 60, expectedPairs: 4 },
-    medium: { moves: 15, time: 90, expectedPairs: 8 },
-    hard: { moves: 20, time: 120, expectedPairs: 12 },
+function init() {
+    selectedCards= [];
+    winner = true;
+    isCardClickable = true;
+    render();
 };
 
-function initGame(level) {
-    const info = levelInfo[level];
-
-    movesLeft.textContent = `${moves = info.moves}`;
-    timeRemaining.textContent = `${timeLeft = info.time} seconds`;
-    expectedPairs =  info.expectedPairs;
-    cardCount = info.expectedPairs;
-
-    render();
+function render() { //after initialization, it calls the render function which updates the game display
+    shuffle(pictures);
+    renderAssignPics();
+    cards.forEach((card) => card.removeEventListener('click', handleClick));
 }
 
-function generateDeck() {
-    const cardsOut = Array.form({ lenght: cardCount }, cardImages[0]).flat();
-    cardsAvailable = [...cardsOut];
-    fisherYatesShuffle(cardsAvailable);
-}
-
-function render() {
-    generateDeck()
-    cardsDisplayDesign()
-}
-
-function cardsDisplayDesign() {
-    cardContainer.innerHTML = '';
-
-    const cardElements = cardsAvailable.map((card, idx) => {
-        const newCard = document.createElement('div');
-        newCard.className = `game-card back`;
-        newCard.id = `game-card-${idx}`;
-        newCard.addEventListener('click', flipCard);
-        return newCard;
-    });
-
-    cardElements.forEach((cardElement) => {
-        cardContainer.appendChild(cardElement);
+function renderAssignPics() {
+    cards.forEach((card, i) => {
+        const newImg = document.createElement('img');
+        newImg.src = pictures[i];
+        newImg.style.height = "19.70vmin";
+        newImg.style.width = "18.30vmin";
+        card.appendChild(newImg);
     });
 }
+
+function shuffle(array) {
+    for (let origId = array.length - 1; origId > 0; origId--) {
+      const newId = Math.floor(Math.random() * (origId + 1));
+        [array[origId], array[newId]] = [array[newId], array[origId]];
+    }
+}
+
+function handleClick(evt) {
+    if (evt.target.classList.contains('selected') || evt.target.classList.contains('match')) { // Guard rail
+        return;
+    }
+    evt.target.classList.add('selected', 'flipUp');
+    selectedCards.push(evt.target);
+    if (selectedCards.length === 2) {
+        cards.forEach((card) => card.removeEventListener('click', handleClick));
+        setTimeout(() => {
+            checkMatch();
+        }, 1000);
+    }
+}
+
+function checkMatch() {
+    const [card1, card2] = selectedCards;
+
+    if (card1.nextElementSibling.src === card2.nextElementSibling.src) {
+        selectedCards.forEach(card => {
+            card.classList.remove('selected');
+            card.classList.add('match');
+            disablePointerEvents(card);
+            message.innerHTML = 'WHAT A MATCH!';
+        });
+    } else {
+        // If no match, remove class from cards in array
+        selectedCards.forEach(card => {
+            card.classList.remove('selected', 'flipUp');
+            resetCardStyles(card);
+        });
+    }
+    // Re-enable card clicks and reset array to empty
+    cards.forEach(card => card.addEventListener('click', handleClick));
+    selectedCards = [];
+}
+
+function checkWin() {
+    for (let i = 0; i < backCardEl.length; i++) {
+        const backCard = backCardEl[i];
+    
+        if (countdownTimer === -1 || !backCard.classList.contains('match')) {
+            stopAndShowResult(false);
+            return;
+        }
+    }
+    
+    stopAndShowResult(true);
+    
+    function stopAndShowResult(isWinner) {
+        stopTimer();
+        cards.forEach(card => card.removeEventListener('click', handleClick));
+        showLightbox();
+        message.innerHTML = `${isWinner ? 'WELL DONE' : 'MAX ATTEMPTS USED'}!<br>${isWinner ? 'YOU WIN!' : 'TRY AGAIN!'}</h1>`;
+    }
+    
+}
+
+function restartGame () { 
+    window.location.reload();
+};

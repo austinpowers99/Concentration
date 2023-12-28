@@ -1,8 +1,6 @@
 # Sam's Concentration Game 💥
 
-Your mission is to match all of the cards on the screen before the timer runs out or before you're out of moves! In this game you'll need to sharpen your memory and quick thinking to succeed. 
-
-The game contains three levels to choose from, and you may start at any of them.
+Your mission is to match all of the cards on the screen before you're out of moves! In this game you'll need to sharpen your memory and quick thinking to succeed. 
 
 ## How to play
 1. Click the Start button to begin!
@@ -14,5 +12,4 @@ The game contains three levels to choose from, and you may start at any of them.
 ## Getting Started:
 To embark on this exciting adventure, click the link to play! 👉🏼 [Concentration Game]()
 
-
-<!-- [wireframe]() -->
+[wireframe](https://excalidraw.com/#json=kOfvkizbydq3aVpiATw7d,0nmXmaf7IWG8Ch7npIyJdw)

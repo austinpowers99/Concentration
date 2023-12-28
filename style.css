@@ -1,109 +1,90 @@
-/* body {
+* {
+    box-sizing: border-box;
+}
+
+body {
     min-height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(216, 206, 253);
-} */
+    background-color: rgb(252, 247, 228);
+}
 
 h1 {
-    display: flex;
-    background-color: #04f0e8;
-    /* background-image: url(); */
-    /* align-items: center; */
-    /* background-size: cover;  */
-    /* background-position: center top; */
-    /* justify-content: center; */
+    margin-top: 2vmin;
+    font-family: 'Allura';
+    font-size: 35px;
+    letter-spacing: 8px;
+    color: rgb(0, 0, 0);
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    font-family: 'Allura';
+    color: rgb(0, 154, 231);
     justify-content: center;
     text-align: center;
-    padding: 3vmin;
-    font-family: 'Allura', cursive;
-    font-size: 6vmin;
-    border-radius: 2vmin;
 }
 
 h3 {
-    font-family: 'Allura', cursive;
-    font-size: 3.5vmin;
-    color: rgb(87, 167, 1);
+    font-family: 'Allura';
+    font-size: 25px;
+    color: rgb(255, 196, 0);
     justify-content: center;
     text-align: center;
 }
 
-.header-updates {
-    display: flex;
-    justify-content: space-evenly;
-    font-family: 'Allura', cursive;
-    font-size: 3.5vmin;
-    text-align: center;
-    border-radius: 2vmin;
-    background-color: rgb(3, 230, 250);
-    margin: 5vmin 10vmin;
-}
-
-.difficulty {
-    display: flex;
-    justify-content: space-evenly;
-    font-family: 'Allura', cursive;
-    font-size: 20px;
-    text-align: center;
-}
-
-/* .card {
-    box-sizing: border-box;
-    display: inline-block;
-    margin: 1vmin 1vmin 2vmin 1vmin;
-    cursor: auto;
-    font-size: inherit;
-    width: 10vmin;
-    height: 14vmin;
-    border-radius: 2vmin;
-    background-color: #ff3030;
-    background-position: center;
-    background-size: contain;
-    overflow: hidden;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: all 0.5s ease-in-out;
-} */
-
-/* .card-container {
+#board {
     display: grid;
+    gap: 4vmin;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 3vmin;
+    background-color: rgb(3, 200, 218);
+    border: 1vmin solid rgb(255, 200, 2);
+    border-radius: 2vmin;
+    margin: 3vmin;
+}
+
+#start-btn, #restart-btn {
+    padding: 1.5vmin;
+    border-radius: 2.5vmin;
+    border: 0.4vmin solid rgb(255, 200, 2);
     justify-content: center;
-    grid-gap: 2px;
-    grid-template-columns: repeat(6, 120px);
-    grid-template-rows: repeat(0, calc(80px / 2*4));
-    margin-top: 16px;
-    margin-bottom: 0px;
-    justify-content: space-evenly;
-    border-radius: 2vmin;
-    border-color: #200418;
-} */
+    align-self: center;
+    font-family: 'Allura';
+    font-size: 20px;
+    box-shadow: 5px 5px 5px black;
+    cursor: pointer;
+    display: inline-block;
+}
 
-/* .flip-card {
-    transform: rotateX(180deg);
-} */
+.card {
+    height: 23vmin;
+    width: 18.5vmin;
+    border-radius: 1.5vmin;
+    position: relative;
+    box-shadow: 10px 5px 5px black;
+    cursor: pointer;
+}
 
-/* .game-difficulty {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    text-align: center;
-    border-radius: 2vmin;
-    border-color: black;
-} */
+.back-card {
+    position: absolute;
+    height: 23vmin;
+    width: 18.5vmin;
+    border-radius: 1.5vmin;
+    border: 0.5vmin solid rgb(255, 200, 2);
+    background-color: rgb(255, 244, 202);
+    background-image: url('images/farm.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
 
-
-/* section{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 490px;
-    text-align: center;
-} */
-
-/* #game-level{
-    font-size: 18px;
-} */
+.back-card:hover {
+    transform: scale(1.1);
+}
