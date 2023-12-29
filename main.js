@@ -1,11 +1,11 @@
 /*----- constants -----*/
-const cardValues = ['images/cow.png', 'images/fox.png', 'images/horse.png', 'images/pig.png', 'images/rabbit.png', 'images/sheep.png', 
+const cardValues = ['images/cow.png', 'images/fox.png', 'images/horse.png', 'images/pig.png', 'images/rabbit.png', 'images/sheep.png',
 'images/cow.png', 'images/fox.png', 'images/horse.png', 'images/pig.png', 'images/rabbit.png', 'images/sheep.png'];
 
 /*----- app's state (variables) -----*/
 let board;
 let results; // all cards are matched = 'Well Done!'
-let pairs = []; //keep track of matched cards
+// let pairs = []; //keep track of matched cards
 let maxAttempts = 0
 let wrongGuess = 0;
 let winner; // check for winner
@@ -22,7 +22,8 @@ const gameBoard = document.getElementById('game-board');
 
 /*----- event handlers -----*/
 cards.forEach(card => card.addEventListener('click', handleClick));
-button.addEventListener('click', restartGame);
+startBtn.addEventListener('click', init);
+restartBtn.addEventListener('click', init);
 
 
 /*----- Functions -----*/
@@ -31,22 +32,28 @@ init();
 function init() {
     selectedCards= [];
     winner = true;
+    message.innerHTML = 'You get 4 wrong guesses!';
     isCardClickable = true;
     render();
 };
 
 function render() { //after initialization, it calls the render function which updates the game display
-    shuffle(pictures);
+    shuffle(cardValues);
     renderAssignPics();
     cards.forEach((card) => card.removeEventListener('click', handleClick));
 }
 
 function renderAssignPics() {
     cards.forEach((card, i) => {
+        // Remove existing images from the card
+        while (card.firstChild) {
+            card.removeChild(card.firstChild);
+        }
+
         const newImg = document.createElement('img');
-        newImg.src = pictures[i];
-        newImg.style.height = "19.70vmin";
-        newImg.style.width = "18.30vmin";
+        newImg.src = cardValues[i];
+        newImg.style.height = '19.70vmin';
+        newImg.style.width = '18.30vmin';
         card.appendChild(newImg);
     });
 }
@@ -94,26 +101,46 @@ function checkMatch() {
     selectedCards = [];
 }
 
-function checkWin() {
-    for (let i = 0; i < backCardEl.length; i++) {
-        const backCard = backCardEl[i];
-    
-        if (countdownTimer === -1 || !backCard.classList.contains('match')) {
-            stopAndShowResult(false);
-            return;
+function checkForWin() {
+    let allMatched = true;
+
+    for (const backCard of backCardEl) {
+        if (!backCard.classList.contains('match')) {
+            allMatched = false;
+            break;
         }
     }
-    
-    stopAndShowResult(true);
-    
-    function stopAndShowResult(isWinner) {
-        stopTimer();
-        cards.forEach(card => card.removeEventListener('click', handleClick));
-        showLightbox();
-        message.innerHTML = `${isWinner ? 'WELL DONE' : 'MAX ATTEMPTS USED'}!<br>${isWinner ? 'YOU WIN!' : 'TRY AGAIN!'}</h1>`;
+
+    if (allMatched) {
+        stopGame(true, 'WELL DONE! YOU WIN!');
     }
-    
 }
+
+function stopGame(isWinner, message) {
+    cards.forEach((card) => card.removeEventListener('click', handleClick));
+    message.innerHTML = `<h3 ${isWinner ? 'YES' : 'NO'}>${message}</h3>`;
+}
+
+// function checkWin() {
+//     for (let i = 0; i < backCardEl.length; i++) {
+//         const backCard = backCardEl[i];
+
+//         if (!backCard.classList.contains('match')) {
+//             winner = false;
+//             break;
+//         } else {
+//             winner = true;
+//         }
+//     }
+    
+//     stopAndShowResult(true);
+    
+//     if (winner === true) {
+//         cards.forEach((card) => card.removeEventListener('click', handleClick));
+//         message.innerHTML = `${isWinner ? 'WELL DONE' : 'MAX ATTEMPTS USED'}!<br>${isWinner ? 'YOU WIN!' : 'TRY AGAIN!'}</h1>`;
+//     }
+    
+// }
 
 function restartGame () { 
     window.location.reload();
