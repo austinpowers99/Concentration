@@ -5,7 +5,6 @@ const cardValues = ['images/cow.png', 'images/fox.png', 'images/horse.png', 'ima
 /*----- app's state (variables) -----*/
 let board;
 let results; // all cards are matched = 'Well Done!'
-// let pairs = []; //keep track of matched cards
 let maxAttempts = 0
 let wrongGuess = 0;
 let winner; // check for winner
@@ -21,9 +20,10 @@ const gameBoard = document.getElementById('game-board');
 
 
 /*----- event handlers -----*/
-cards.forEach(card => card.addEventListener('click', handleClick));
-startBtn.addEventListener('click', init);
-restartBtn.addEventListener('click', init);
+cards.forEach(card => card.addEventListener('click', handleClick)); // for the back of the cards
+// cards.addEventListener('click', handleClick); // for the front of the cards
+// startBtn.addEventListener('click', init);
+// restartBtn.addEventListener('click', init);
 
 
 /*----- Functions -----*/
@@ -33,7 +33,6 @@ function init() {
     selectedCards= [];
     winner = true;
     message.innerHTML = 'You get 4 wrong guesses!';
-    isCardClickable = true;
     render();
 };
 
@@ -43,6 +42,13 @@ function render() { //after initialization, it calls the render function which u
     cards.forEach((card) => card.removeEventListener('click', handleClick));
 }
 
+function shuffle(array) {
+    for (let origId = array.length - 1; origId > 0; origId--) {
+      const newId = Math.floor(Math.random() * (origId + 1));
+        [array[origId], array[newId]] = [array[newId], array[origId]];
+    }
+}
+
 function renderAssignPics() {
     cards.forEach((card, i) => {
         // Remove existing images from the card
@@ -50,19 +56,29 @@ function renderAssignPics() {
             card.removeChild(card.firstChild);
         }
 
-        const newImg = document.createElement('img');
-        newImg.src = cardValues[i];
-        newImg.style.height = '19.70vmin';
-        newImg.style.width = '18.30vmin';
-        card.appendChild(newImg);
-    });
-}
+        const frontImg = document.createElement('img');
+        const backImg = document.createElement('img');
 
-function shuffle(array) {
-    for (let origId = array.length - 1; origId > 0; origId--) {
-      const newId = Math.floor(Math.random() * (origId + 1));
-        [array[origId], array[newId]] = [array[newId], array[origId]];
-    }
+        frontImg.src = 'images/farm.png'; // Add the path to your card back image
+        frontImg.style.height = '20.5vmin';
+        frontImg.style.width = '18.30vmin';
+
+        backImg.src = cardValues[i];
+        backImg.style.height = '20.5vmin';
+        backImg.style.width = '18.30vmin';
+
+        // Initially, show only the front image
+        card.appendChild(frontImg);
+
+        card.addEventListener('click', function () {
+            // Toggle between front and back images on each click
+            frontImg.classList.toggle('hidden');
+            backImg.classList.toggle('hidden');
+
+        // card.appendChild(frontImg);
+        // card.appendChild(backImg);
+        });
+    })
 }
 
 function handleClick(evt) {
@@ -71,6 +87,7 @@ function handleClick(evt) {
     }
     evt.target.classList.add('selected', 'flipUp');
     selectedCards.push(evt.target);
+
     if (selectedCards.length === 2) {
         cards.forEach((card) => card.removeEventListener('click', handleClick));
         setTimeout(() => {
@@ -120,27 +137,6 @@ function stopGame(isWinner, message) {
     cards.forEach((card) => card.removeEventListener('click', handleClick));
     message.innerHTML = `<h3 ${isWinner ? 'YES' : 'NO'}>${message}</h3>`;
 }
-
-// function checkWin() {
-//     for (let i = 0; i < backCardEl.length; i++) {
-//         const backCard = backCardEl[i];
-
-//         if (!backCard.classList.contains('match')) {
-//             winner = false;
-//             break;
-//         } else {
-//             winner = true;
-//         }
-//     }
-    
-//     stopAndShowResult(true);
-    
-//     if (winner === true) {
-//         cards.forEach((card) => card.removeEventListener('click', handleClick));
-//         message.innerHTML = `${isWinner ? 'WELL DONE' : 'MAX ATTEMPTS USED'}!<br>${isWinner ? 'YOU WIN!' : 'TRY AGAIN!'}</h1>`;
-//     }
-    
-// }
 
 function restartGame () { 
     window.location.reload();
