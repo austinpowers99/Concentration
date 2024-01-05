@@ -7,7 +7,7 @@ let board;
 let results; // all cards are matched = 'Well Done!'
 let maxAttempts = 0
 let wrongGuess = 0;
-let winner; // check for winner
+let winner; 
 let selectedCards; // array to store selected cards
 
 /*----- cached element references -----*/
@@ -21,9 +21,8 @@ const gameBoard = document.getElementById('game-board');
 
 /*----- event handlers -----*/
 cards.forEach(card => card.addEventListener('click', handleClick)); // for the back of the cards
-// cards.addEventListener('click', handleClick); // for the front of the cards
-// startBtn.addEventListener('click', init);
-// restartBtn.addEventListener('click', init);
+startBtn.addEventListener('click', init);
+restartBtn.addEventListener('click', init);
 
 
 /*----- Functions -----*/
@@ -34,6 +33,12 @@ function init() {
     winner = true;
     message.innerHTML = 'You get 4 wrong guesses!';
     render();
+
+    cards.forEach(card => {
+        if (!card.classList.contains('flipUp') && !card.classList.contains('match')) {
+            card.addEventListener('click', handleClick);
+        }
+    })
 };
 
 function render() { //after initialization, it calls the render function which updates the game display
@@ -59,26 +64,24 @@ function renderAssignPics() {
         const frontImg = document.createElement('img');
         const backImg = document.createElement('img');
 
-        frontImg.src = 'images/farm.png'; // Add the path to your card back image
+        frontImg.src = 'images/farm.png'; // The path to the image in the back of the card
         frontImg.style.height = '20.5vmin';
         frontImg.style.width = '18.30vmin';
 
         backImg.src = cardValues[i];
         backImg.style.height = '20.5vmin';
         backImg.style.width = '18.30vmin';
+        backImg.classList.add('hidden'); // Initially hide the back image
 
         // Initially, show only the front image
         card.appendChild(frontImg);
+        card.appendChild(backImg);
 
         card.addEventListener('click', function () {
-            // Toggle between front and back images on each click
             frontImg.classList.toggle('hidden');
             backImg.classList.toggle('hidden');
-
-        // card.appendChild(frontImg);
-        // card.appendChild(backImg);
         });
-    })
+    });
 }
 
 function handleClick(evt) {
@@ -96,6 +99,7 @@ function handleClick(evt) {
     }
 }
 
+
 function checkMatch() {
     const [card1, card2] = selectedCards;
 
@@ -105,17 +109,27 @@ function checkMatch() {
             card.classList.add('match');
             disablePointerEvents(card);
             message.innerHTML = 'WHAT A MATCH!';
+            card.removeEventListener('click', handleClick);
         });
     } else {
         // If no match, remove class from cards in array
         selectedCards.forEach(card => {
             card.classList.remove('selected', 'flipUp');
             resetCardStyles(card);
+            card.addEventListener('click', handleClick);
         });
     }
     // Re-enable card clicks and reset array to empty
     cards.forEach(card => card.addEventListener('click', handleClick));
     selectedCards = [];
+}
+
+function resetCardStyles(card) {
+    setTimeout(() => {
+        card.classList.remove('flipUp');
+        card.querySelector('.front').classList.remove('hidden');
+        card.querySelector('.back').classList.add('hidden');
+    }, 1000);
 }
 
 function checkForWin() {
