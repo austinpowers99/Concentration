@@ -43,6 +43,24 @@ h3 {
     text-align: center;
 }
 
+button {
+    padding: 1.5vmin;
+    border-radius: 2.5vmin;
+    border: 0.5vmin solid rgb(255, 200, 2);
+    justify-content: center;
+    align-self: center;
+    font-family: 'Allura';
+    font-size: 17px;
+    box-shadow: 4px 4px 4px rgb(156, 112, 1);
+    cursor: pointer;
+    display: inline-block;
+    margin: 10px 15px 15px 15px;
+}
+
+button:active {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Depth effect */
+}
+
 .cards {
     display: grid;
     grid-template-columns: repeat(4, 20vmin);
