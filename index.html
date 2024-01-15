@@ -3,62 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sam's Concentration Game</title>
 
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script defer src="main.js"></script>
+    <title>Memory Game</title>
 </head>
 
 <body>
-    
-    <h1 align='center'>Memory Game<br>
-    (Farm Animals Edition)</h1>
+    <h1 id='message'>Memory Game<br>
+        (Farm Animals Edition)</h1>
     <h2>Hit Start to begin and find all 6 pairs!</h2>
-    <h3 id="message">You get 4 wrong guesses!</h3>
-    <div class="btn-container">
-        <button id="start-btn" onclick="startGame()">START GAME</button>
-        <button id="restart-btn" onclick="playAgain()">PLAY AGAIN</button>
-    </div>
+    <h3>You get 4 wrong guesses!</h3>
 
-    <section id="board">
-        <div class="card">
-            <div class="back-card"></div>
+    <button>START GAME</button>
+
+    <main id="board">
+        <section class="cards">
+
+        <div class="card" id="c0r0">
+            <div class="back" style="display: none;">
+                <img src="images/cow.png" alt="cow">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        <div class="card" id="c0r1">
+            <div class="back" style="display: none;">
+                <img src="images/bunny.png" alt="bunny">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        <div class="card" id="c0r2">
+            <div class="back" style="display: none;">
+                <img src="images/fox.png" alt="fox">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        <div class="card" id="c0r3">
+            <div class="back" style="display: none;">
+                <img src="images/horse.png" alt="horse">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        
+        
+        <div class="card" id="c1r0">
+            <div class="back" style="display: none;">
+                <img src="images/pig.png" alt="pig">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        <div class="card" id="c1r1">
+            <div class="back" style="display: none;">
+                <img src="images/sheep.png" alt="sheep">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        <div class="card" id="c1r2">
+            <div class="back" style="display: none;">
+                <img src="images/cow.png" alt="cow">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        <div class="card" id="c1r3">
+            <div class="back" style="display: none;">
+                <img src="images/bunny.png" alt="bunny">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        
+
+        <div class="card" id="c2r0">
+            <div class="back" style="display: none;">
+                <img src="images/fox.png" alt="fox">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        <div class="card" id="c2r1">
+            <div class="back" style="display: none;">
+                <img src="images/horse.png" alt="horse">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        <div class="card" id="c2r2">
+            <div class="back" style="display: none;">
+                <img src="images/pig.png" alt="pig">
+            </div>
+            <div class="front"></div>
         </div>
-        <div class="card">
-            <div class="back-card"></div>
+        <div class="card" id="c2r3">
+            <div class="back" style="display: none;">
+                <img src="images/sheep.png" alt="sheep">
+            </div>
+            <div class="front"></div>
         </div>
-    </section>
+
+        </section>
+    </main>
 
 </body>
 </html> 

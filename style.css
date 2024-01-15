@@ -36,63 +36,79 @@ h3 {
     text-align: center;
 }
 
-#board {
+#message {
+    font-family: 'Allura';
+    font-size: 25px;
+    justify-content: center;
+    text-align: center;
+}
+
+.cards {
     display: grid;
-    gap: 4vmin;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    padding: 3vmin;
+    grid-template-columns: repeat(4, 20vmin);
+    grid-template-rows: repeat(3, 25vmin);
+    gap: 2.5vmin;
+    padding: 4vmin;
+    padding-right: 6vmin;
     background-color: rgb(3, 200, 218);
     border: 1vmin solid rgb(255, 200, 2);
     border-radius: 2vmin;
     margin: 2vmin;
+    cursor: pointer;
 }
 
-#start-btn, #restart-btn {
+.card {
+    height: 24vmin;
+    width: 19.5vmin;
+    border-radius: 1.5vmin;
+    position: relative;
+    box-shadow: 4px 4px 4px rgb(0, 57, 69);
+    cursor: pointer;
+    border: 0.5vmin solid rgb(255, 200, 2);
+    background-color: rgb(255, 244, 202);
+    background-image: url('images/farm.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 2vmin;
+}
+
+.card .back img {
+    height: 20vmin;
+    width: 17vmin;
+    border-radius: 1.5vmin;
+}
+
+.card .back {
+    background-color: rgb(255, 244, 202);
+    border-radius: 1.5vmin;
+    margin-top: 1vmin;
+    backface-visibility: hidden;
+}
+
+.cards > div {
+    transform-style: preserve-3d;
+    transition: transform 0.5s, border 0.5s;
+}
+
+.cards > div.flipped {
+    transform: rotateX(360deg);
+}
+
+#start-btn, #playagain-btn {
     padding: 1.5vmin;
     border-radius: 2.5vmin;
     border: 0.5vmin solid rgb(255, 200, 2);
     justify-content: center;
     align-self: center;
     font-family: 'Allura';
-    font-size: 20px;
+    font-size: 17px;
     box-shadow: 4px 4px 4px rgb(156, 112, 1);
     cursor: pointer;
     display: inline-block;
     margin: 10px 15px 15px 15px;
 }
 
-#start-btn:active, #restart-btn:active {
+#start-btn:active, #playagain-btn:active {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Depth effect */
-}
-
-.card {
-    height: 23vmin;
-    width: 19.5vmin;
-    border-radius: 1.5vmin;
-    position: relative;
-    box-shadow: 10px 5px 5px black;
-    cursor: pointer;
-    border: 0.5vmin solid rgb(255, 200, 2);
-    background-color: rgb(255, 244, 202);
-}
-
-.back-card {
-    position: absolute;
-    height: 23vmin;
-    width: 19.5vmin;
-    border-radius: 1.5vmin;
-    background-image: url('images/farm.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
-}
-
-.back-card:hover {
-    transform: scale(1.1);
-}
-
-.hidden {
-    display: none;
 }

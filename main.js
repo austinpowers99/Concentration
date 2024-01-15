@@ -1,157 +1,110 @@
-/*----- constants -----*/
-const cardValues = ['images/cow.png', 'images/fox.png', 'images/horse.png', 'images/pig.png', 'images/rabbit.png', 'images/sheep.png',
-'images/cow.png', 'images/fox.png', 'images/horse.png', 'images/pig.png', 'images/rabbit.png', 'images/sheep.png'];
+//*---- constants ----*//
+const cardValues = ['cow', 'bunny', 'fox', 'horse', 'pig', 'sheep', 'cow', 'bunny', 'fox', 'horse', 'pig', 'sheep'];
 
-/*----- app's state (variables) -----*/
-let board;
-let results; // all cards are matched = 'Well Done!'
-let maxAttempts = 0
-let wrongGuess = 0;
+//*---- state variables ----*//
+let board; 
 let winner; 
-let selectedCards; // array to store selected cards
+let pairs = []; 
+let flippedCards = [];
+let points = 0;
+let wrongGuess = 0;
 
-/*----- cached element references -----*/
-const cards = document.querySelectorAll('.card');
-const backCardEl = document.getElementsByClassName('back-card');
-const startBtn = document.getElementById('start-btn');
-const restartBtn = document.getElementById('restart-btn');
-const message = document.querySelector('h3')
-const gameBoard = document.getElementById('game-board');
+//*---- cached elements ----*//
+const message = document.querySelector('h3');
+const playAgainBtn = document.querySelector('button');
+const gameBoard = document.querySelector('#board');
+const gameCards = document.querySelectorAll('.card');
 
+//*---- event listeners ----*//
+playAgainBtn.addEventListener('click', initialize);
 
-/*----- event handlers -----*/
-cards.forEach(card => card.addEventListener('click', handleClick)); // for the back of the cards
-startBtn.addEventListener('click', init);
-restartBtn.addEventListener('click', init);
+//*---- functions ----*//
+initialize();
 
-
-/*----- Functions -----*/
-init();
-
-function init() {
-    selectedCards= [];
-    winner = true;
-    message.innerHTML = 'You get 4 wrong guesses!';
-    render();
-
-    cards.forEach(card => {
-        if (!card.classList.contains('flipUp') && !card.classList.contains('match')) {
-            card.addEventListener('click', handleClick);
-        }
-    })
-};
-
-function render() { //after initialization, it calls the render function which updates the game display
-    shuffle(cardValues);
-    renderAssignPics();
-    cards.forEach((card) => card.removeEventListener('click', handleClick));
-}
-
-function shuffle(array) {
-    for (let origId = array.length - 1; origId > 0; origId--) {
-      const newId = Math.floor(Math.random() * (origId + 1));
-        [array[origId], array[newId]] = [array[newId], array[origId]];
-    }
-}
-
-function renderAssignPics() {
-    cards.forEach((card, i) => {
-        // Remove existing images from the card
-        while (card.firstChild) {
-            card.removeChild(card.firstChild);
-        }
-
-        const frontImg = document.createElement('img');
-        const backImg = document.createElement('img');
-
-        frontImg.src = 'images/farm.png'; // The path to the image in the back of the card
-        frontImg.style.height = '20.5vmin';
-        frontImg.style.width = '18.30vmin';
-
-        backImg.src = cardValues[i];
-        backImg.style.height = '20.5vmin';
-        backImg.style.width = '18.30vmin';
-        backImg.classList.add('hidden'); // Initially hide the back image
-
-        // Initially, show only the front image
-        card.appendChild(frontImg);
-        card.appendChild(backImg);
-
-        card.addEventListener('click', function () {
-            frontImg.classList.toggle('hidden');
-            backImg.classList.toggle('hidden');
-        });
+function initialize() {
+    gameCards.forEach((gameCard, i) => {
+        const front = gameCard.querySelector('.front');
+        const back = gameCard.querySelector('.back');
+        
+        front.style.display = 'block'; // Show the front
+        back.style.display = 'none';   // Initially hide the back
+        
+        gameCard.classList.remove('flipped');
+        gameCard.addEventListener('click', flipCard);
     });
+    
+    message.innerHTML = 'You get 4 wrong guesses!';
+    points = 0;
+    wrongGuess = 0;
+    winner = null;
 }
 
-function handleClick(evt) {
-    if (evt.target.classList.contains('selected') || evt.target.classList.contains('match')) { // Guard rail
-        return;
-    }
-    evt.target.classList.add('selected', 'flipUp');
-    selectedCards.push(evt.target);
+function flipCard(event) {
+    const card = event.currentTarget;
+    if (card.classList.contains('flipped') || flippedCards.length === 2) return;
 
-    if (selectedCards.length === 2) {
-        cards.forEach((card) => card.removeEventListener('click', handleClick));
+    card.classList.add('flipped');
+    const back = card.querySelector('.back');
+
+    // Display the back (image) when the card is clicked
+    back.style.display = 'block';
+
+    flippedCards.push(card);
+
+    if (flippedCards.length === 2) {
+        setTimeout(compareCards, 500);
+    }
+}
+
+
+function compareCards() {
+    const card1 = flippedCards[0];
+    const card2 = flippedCards[1];
+
+    const img1 = card1.querySelector('.back img').src;
+    const img2 = card2.querySelector('.back img').src;
+
+    if (img1 === img2) {
+        // Cards match
+        pairs.push(card1, card2);
+        message.innerHTML = 'WHAT A MATCH!';
+        points += 1;
+        flippedCards = [];
+
+        if (points === 6) {
+            renderWin();
+        }
+    } else {
+        // Cards don't match
         setTimeout(() => {
-            checkMatch();
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+
+            // Re-hide the back (image) when the cards don't match
+            const back1 = card1.querySelector('.back');
+            const back2 = card2.querySelector('.back');
+            back1.style.display = 'none';
+            back2.style.display = 'none';
+
+            flippedCards = [];
+            wrongGuess += 1;
+            message.innerHTML = 'Try again!';
+            if (wrongGuess === 4) {
+                message.innerHTML = 'GAME OVER!';
+                gameOver();
+            }
         }, 1000);
     }
 }
 
-
-function checkMatch() {
-    const [card1, card2] = selectedCards;
-
-    if (card1.nextElementSibling.src === card2.nextElementSibling.src) {
-        selectedCards.forEach(card => {
-            card.classList.remove('selected');
-            card.classList.add('match');
-            disablePointerEvents(card);
-            message.innerHTML = 'WHAT A MATCH!';
-            card.removeEventListener('click', handleClick);
-        });
-    } else {
-        // If no match, remove class from cards in array
-        selectedCards.forEach(card => {
-            card.classList.remove('selected', 'flipUp');
-            resetCardStyles(card);
-            card.addEventListener('click', handleClick);
-        });
-    }
-    // Re-enable card clicks and reset array to empty
-    cards.forEach(card => card.addEventListener('click', handleClick));
-    selectedCards = [];
+function renderWin() {
+    if (points === 6) {
+        message.innerHTML = 'WELL DONE! YOU WIN!';
+        gameOver();
+        points = 0;
+    } 
 }
 
-function resetCardStyles(card) {
-    setTimeout(() => {
-        card.classList.remove('flipUp');
-        card.querySelector('.front').classList.remove('hidden');
-        card.querySelector('.back').classList.add('hidden');
-    }, 1000);
+function gameOver() {
+    gameCards.forEach((gameCard) => { gameCard.removeEventListener('click', flipCard); });
 }
-
-function checkForWin() {
-    let allMatched = true;
-
-    for (const backCard of backCardEl) {
-        if (!backCard.classList.contains('match')) {
-            allMatched = false;
-            break;
-        }
-    }
-
-    if (allMatched) {
-        stopGame(true, 'WELL DONE! YOU WIN!');
-    }
-}
-
-function stopGame(isWinner, message) {
-    cards.forEach((card) => card.removeEventListener('click', handleClick));
-    message.innerHTML = `<h3 ${isWinner ? 'YES' : 'NO'}>${message}</h3>`;
-}
-
-function restartGame () { 
-    window.location.reload();
-};
