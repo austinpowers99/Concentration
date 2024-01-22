@@ -9,5 +9,8 @@ Your mission is to match all of the cards on the screen before you're out of mov
 4. If you choose two cards that don't match, the second card will flip back over, and you'll lose a move.
 5. After winning or using all available attempts, restart by clicking the Start button again.
 
-## Getting Started:
+## Getting Started
 To embark on this exciting adventure, click the link to play! 👉🏼 [Concentration Game](https://austinpowers99.github.io/Concentration/)
+
+## Preview
+![Home](/images/homepage.png)
