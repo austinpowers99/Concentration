@@ -11,5 +11,3 @@ Your mission is to match all of the cards on the screen before you're out of mov
 
 ## Getting Started:
 To embark on this exciting adventure, click the link to play! 👉🏼 [Concentration Game](https://austinpowers99.github.io/Concentration/)
-
-[wireframe](https://excalidraw.com/#json=kOfvkizbydq3aVpiATw7d,0nmXmaf7IWG8Ch7npIyJdw)
