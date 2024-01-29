@@ -14,7 +14,6 @@ body {
 h1 {
     margin-top: 1vmin;
     font-family: 'Allura';
-    font-size: 35px;
     letter-spacing: 8px;
     color: rgb(0, 0, 0);
     justify-content: center;
@@ -26,14 +25,16 @@ h2 {
     color: rgb(0, 154, 231);
     justify-content: center;
     text-align: center;
+    margin: 2.5vmin;
 }
 
 h3 {
     font-family: 'Allura';
-    font-size: 25px;
-    color: rgb(255, 196, 0);
+    font-size: 24px;
+    color: rgb(255, 166, 0);
     justify-content: center;
     text-align: center;
+    margin: 2.5vmin;
 }
 
 #message {
